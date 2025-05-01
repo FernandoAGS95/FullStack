@@ -6,7 +6,7 @@ package com.example.SegundaEntrega.Repository.Usuarios;
 
 import org.springframework.stereotype.Repository;
 
-import com.example.SegundaEntrega.Model.Apoderado;
+import com.example.SegundaEntrega.Model.Usuario.Apoderado;
 
 import java.util.List;
 import java.util.ArrayList;

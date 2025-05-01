@@ -1,4 +1,4 @@
-package com.example.SegundaEntrega.Model;
+package com.example.SegundaEntrega.Model.Usuario;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,14 +19,23 @@ public abstract class Usuario {
     protected String password;
     protected String nombre;
     protected String apellido;
-    protected String tipo;
+ 
+    protected RolUsuario rol; 
+
+    public enum RolUsuario {
+      ADMIN,
+      PROFESOR,
+      ALUMNO,
+      APODERADO
+  }
   // Constructor
-  public Usuario(String username, String password, String nombre, String apellido, String tipo) {
+  public Usuario(String username, String password,String rut, String nombre, String apellido, RolUsuario rol) {
     this.username = username;
     this.password = password;
+    this.rut = rut;
     this.nombre = nombre;
     this.apellido = apellido;
-    this.tipo = tipo;
+    this.rol = rol;
 }
     
     // Método abstracto para mostrar información específica
