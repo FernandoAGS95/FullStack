@@ -18,18 +18,25 @@ public class AlumnoRepository {
         return listaAlumnosGeneral;
     }
 
-    public List<Alumno> buscarApoderadoRut(String rut) {
-        List<Alumno> alumnoEncontrado = new ArrayList<>();
-        for (Alumno alumno : listaAlumnosGeneral) {
-            if (alumno.getRut().equals(rut)) {
-                alumnoEncontrado.add(alumno);
-            }
-        }
-        return alumnoEncontrado;
-    }
+
     public List<Alumno> findByCurso(String curso) {
         return listaAlumnosGeneral.stream()
                 .filter(a -> a.getIdCurso().equals(curso))
                 .toList();
     }
+    public Alumno findByUserName(String username) {
+        for (Alumno alumno : listaAlumnosGeneral) {
+            if (alumno.getUsername().equals(username)) {
+                return alumno;
+            }
+        }
+        return null; // O lanzar una excepción si no se encuentra el alumno
+    }
+    public Alumno crearAlumno(Alumno alumno) {
+        listaAlumnosGeneral.add(alumno);
+        return alumno;
+    }
+    //TODO : CREAR BUSCARA ASIGNATURAS POR ALUMNO
+    //TODO: TRAR APODERADO ALUMNO (?????)
+    //TODO: PENSAR EN MAS METODOS
 }

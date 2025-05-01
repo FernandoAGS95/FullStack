@@ -1,7 +1,7 @@
 package com.example.SegundaEntrega.Model.Usuario;
 
 import lombok.*;
-import lombok.experimental.SuperBuilder;
+
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,15 +14,13 @@ import java.util.Map;
 
 import com.example.SegundaEntrega.Model.Evaluaciones.Anotaciones;
 import com.example.SegundaEntrega.Model.Evaluaciones.Asignatura;
+import com.example.SegundaEntrega.Model.Evaluaciones.Evaluacion;
 import com.example.SegundaEntrega.Model.Evaluaciones.Tarea;
 
 
 // PEnsar en usar JPA Y CONECTAR CON OCI 
 // CREAR RELACIONES ENTRE TABLAS PARA USAR HIBERNATE H2
 @Data
-@ToString(callSuper = true)
-@SuperBuilder
-
 public class Alumno extends Usuario {
 
 
@@ -30,7 +28,8 @@ public class Alumno extends Usuario {
     @Builder.Default
     private List<Asignatura> asignaturas = new ArrayList<>();
     @Builder.Default
-    private Map<String, Double> notas = new HashMap<>(); // idEvaluacion -> nota
+    private List<String> notas = new ArrayList<>(); // ids de evaluaciones
+    
     @Builder.Default
     private List<Tarea> tareas = new ArrayList<>();
     @Builder.Default
@@ -46,18 +45,14 @@ public class Alumno extends Usuario {
     public String mostrarInformacion() {
         return String.format("Alumno: %s %s - Curso: %s", getNombre(), getApellido(), idCurso);
     }
-
-    public double calcularPromedio() {
-        return notas.values().stream().mapToDouble(d -> d).average().orElse(0.0);
+    public double calcularPromedio(List<Evaluacion> evaluacionesDelCurso) {
+        return evaluacionesDelCurso.stream()
+            .filter(e -> e.getResultados().containsKey(this.id))
+            .mapToDouble(e -> e.getResultados().get(this.id).getValor())
+            .average()
+            .orElse(0.0);
     }
 
-    public void agregarNota(String idEvaluacion, double nota) {
-        notas.put(idEvaluacion, nota);
-    }
 
-    public Object getCurso() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getCurso'");
-    }
 
 }

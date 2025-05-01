@@ -20,15 +20,17 @@ public class ApoderadoRepository {
         return listaApoderados;
     }
 
-    public List<Apoderado> buscarApoderadoPorRut(String rut) {
-        List<Apoderado> apoderadosEncontrados = new ArrayList<>();
+    public Apoderado buscarApoderadoPorRut(String rut) {
         for (Apoderado apoderado : listaApoderados) {
             if (apoderado.getRut().equals(rut)) {
-                apoderadosEncontrados.add(apoderado);
+                return apoderado;
             }
         }
-        return apoderadosEncontrados;
+        return null;
     }
-
+    public Apoderado crearApoderado(Apoderado apoderado) {
+        listaApoderados.add(apoderado);
+        return apoderado;
+    }
     
 }
