@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.example.SegundaEntrega.Model.Alumno;
 import com.example.SegundaEntrega.Model.Apoderado;
@@ -14,52 +15,37 @@ import com.example.SegundaEntrega.Model.Profesor;
 import com.example.SegundaEntrega.Model.Usuario;
 import com.example.SegundaEntrega.Repository.Usuarios.ProfesorRepository;
 
+@Service
 public class UsuariosService {
   private Map<String, Usuario> usuarios = new HashMap<>();
   private Map<String, List<Alumno>> alumnosPorCurso = new HashMap<>();
-
+ 
     //*Repositorios */
   
     @Autowired
     private ProfesorRepository profesorRepository;
-    @Autowired
+
+    @Autowired(required = false)
     private Apoderado apoderadoRepository;
-    @Autowired
+
+    @Autowired(required = false)
     private Alumno alumnoRepository;
     //*FIN Repositorios */
-    public UsuariosService() {
-        // Datos de prueba iniciales
-        Profesor profesor1 = new Profesor("profe1", "profe123", "Juan", "Pérez");
-        profesor1.agregarAsignatura("Matemáticas");
-        profesor1.agregarCurso("4A");
-        registrarUsuario(profesor1);
+   
 
-        Alumno alumno1 = new Alumno("alumno1", "alumno123", "Ana", "Gómez", "4A");
-        registrarUsuario(alumno1);
-
-        Apoderado apoderado1 = new Apoderado("apod1", "apod123", "Carlos", "Gómez", "+56912345678");
-        apoderado1.setAlumnoACargo(alumno1);
-        registrarUsuario(apoderado1);
-    }
-
-    //*ADMIN */
-    public void registrarUsuario(Usuario usuario) {
-        usuario.setId(UUID.randomUUID().toString());
-        usuarios.put(usuario.getUsername(), usuario);
-
-        if (usuario instanceof Alumno alumno) {
-            alumnosPorCurso.computeIfAbsent(alumno.getCurso(), k -> new ArrayList<>()).add(alumno);
-        }
-    }
 
     //*PROFESOR */
     
 
     public List<Profesor> getProfesores(){
+        System.out.println(profesorRepository.getListaProfesores());
         return profesorRepository.getListaProfesores();
     }
     public Profesor getProfesorByRut(String rut){
         return profesorRepository.buscarProfesorPorRut(rut);
+    }
+    public Profesor postProfesor(Profesor profesor){
+        return profesorRepository.crearProfesor(profesor);
     }
     public void agregarNota(String usernameProfesor, String usernameAlumno, double nota) {
         Usuario usuario = usuarios.get(usernameProfesor);
@@ -71,8 +57,6 @@ public class UsuariosService {
         }
     }
     //*FIN PROFESOR */
-
-
     //*ALUMNO */
     //*FIN ALUMNO */
 

@@ -26,5 +26,9 @@ public class ProfesorRepository {
         return null;
     }
 
+    public Profesor crearProfesor(Profesor profesor) {
+        listaProfesores.add(profesor);
+        return profesor;
+    }
 
 }
