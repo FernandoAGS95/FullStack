@@ -1,10 +1,14 @@
 package com.example.SegundaEntrega.Model.Evaluaciones;
 
+import lombok.*;
 import lombok.Data;
 import java.util.*;
 
 @Data
 public class Evaluacion {
+    
+    private Map<String, NotaAlumno> resultados = new HashMap<>();
+
     private String id;
     private String nombre;
     private String descripcion;
@@ -12,7 +16,6 @@ public class Evaluacion {
     private String idCurso;
     private String asignatura;
     private String idProfesor;
-    private Map<String, Double> notas; // idAlumno -> nota
     private EstadoEvaluacion estado;
     private Double promedioCurso;
 
@@ -23,12 +26,15 @@ public class Evaluacion {
         REVISADA
     }
 
-    public void calcularPromedio() {
-        this.promedioCurso = notas.values().stream()
-            .mapToDouble(Double::doubleValue)
+    public void agregarResultado(String idAlumno, NotaAlumno nota) {
+        resultados.put(idAlumno, nota);
+    }
+    public Double calcularPromedio() {
+        return resultados.values().stream()
+            .filter(NotaAlumno::isCalificada)
+            .mapToDouble(NotaAlumno::getValor)
             .average()
             .orElse(0.0);
     }
-
 
 }
