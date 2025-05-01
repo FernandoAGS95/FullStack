@@ -9,10 +9,10 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.SegundaEntrega.Model.Alumno;
-import com.example.SegundaEntrega.Model.Apoderado;
-import com.example.SegundaEntrega.Model.Profesor;
-import com.example.SegundaEntrega.Model.Usuario;
+import com.example.SegundaEntrega.Model.Usuario.Alumno;
+import com.example.SegundaEntrega.Model.Usuario.Apoderado;
+import com.example.SegundaEntrega.Model.Usuario.Profesor;
+import com.example.SegundaEntrega.Model.Usuario.Usuario;
 import com.example.SegundaEntrega.Repository.Usuarios.ProfesorRepository;
 
 @Service
@@ -36,7 +36,6 @@ public class UsuariosService {
 
     //*PROFESOR */
     
-
     public List<Profesor> getProfesores(){
         System.out.println(profesorRepository.getListaProfesores());
         return profesorRepository.getListaProfesores();
@@ -47,27 +46,14 @@ public class UsuariosService {
     public Profesor postProfesor(Profesor profesor){
         return profesorRepository.crearProfesor(profesor);
     }
-    public void agregarNota(String usernameProfesor, String usernameAlumno, double nota) {
-        Usuario usuario = usuarios.get(usernameProfesor);
-        if (usuario instanceof Profesor profesor) {
-            Usuario alumno = usuarios.get(usernameAlumno);
-            if (alumno instanceof Alumno) {
-                profesor.ponerNota((Alumno) alumno, nota);
-            }
-        }
-    }
+
     //*FIN PROFESOR */
     //*ALUMNO */
+
     //*FIN ALUMNO */
 
     //*Apoderado */
-    public List<Double> consultarNotasAlumno(String usernameApoderado) {
-        Usuario usuario = usuarios.get(usernameApoderado);
-        if (usuario instanceof Apoderado apoderado && apoderado.getAlumnoACargo() != null) {
-            return apoderado.getAlumnoACargo().getNotas();
-        }
-        return new ArrayList<>();
-    }
+
      //*FIN Apoderado */
 
 
