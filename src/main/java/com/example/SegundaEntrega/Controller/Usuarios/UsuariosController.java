@@ -2,11 +2,11 @@ package com.example.SegundaEntrega.Controller.Usuarios;
 
 
 
-import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 
-import com.example.SegundaEntrega.Model.Profesor;
+import com.example.SegundaEntrega.Model.Usuario.Alumno;
+import com.example.SegundaEntrega.Model.Usuario.Apoderado;
+import com.example.SegundaEntrega.Model.Usuario.Profesor;
 import com.example.SegundaEntrega.Service.Usuarios.UsuariosService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,17 +27,54 @@ public class UsuariosController {
     public UsuariosController(UsuariosService usuarioService) {
         this.usuarioService = usuarioService;
     }
-    //*Endpoints Profesor */
 
+
+
+    //* ADMIN */
+    @PostMapping("/admin/profesores")
+    public Profesor crearProfesor(@RequestBody Profesor profesor) {
+        return usuarioService.postProfesor(profesor);
+    }
+    @PostMapping("/admin/alumnos")
+    public Alumno crearAlumno(@RequestBody Alumno alumno) {
+        return usuarioService.crearAlumno(alumno);
+    }
+    @PostMapping("/admin/apoderados")
+    public Apoderado crearApoderado(@RequestBody Apoderado apoderado) {
+        return usuarioService.crearApoderado(apoderado);
+    }
+    //* FIN ADMIN */
+    /************************************************************ */
+    /************************************************************ */
+    //* Profesor */
     @GetMapping("/profesores")
     public List<Profesor> buscarProfesores(){
         return usuarioService.getProfesores();
     }
-
-    @PostMapping("/profesores")
-    public Profesor crearProfesor(@RequestBody Profesor profesor) {
-        return usuarioService.postProfesor(profesor);
+    @GetMapping("/profesores/{rut}")
+    public Profesor buscarProfesorPorRut(@PathVariable String rut){
+        return usuarioService.getProfesorByRut(rut);
     }
-
+    //* FIN PROFESOR */
+    /************************************************************ */
+    /************************************************************ */
+    //* ALUMNO */
+    @GetMapping("/alumnos")
+    public List<Alumno> buscarAlumnos(){
+        return usuarioService.getListaAlumnosGeneral();
+    }
+    @GetMapping("/alumnos/{username}")
+    public Alumno buscarAlumnoPorUsername(@PathVariable String username){
+        return usuarioService.getAlumnoByUserName(username);
+    }
+    
+    //* FIN Alumno */
+    /************************************************************ */
+    /************************************************************ */
+    //* Apoderado */
+    @GetMapping("/apoderados/{rut}")
+    public Apoderado buscarApoderadoPorRut(@PathVariable String rut){
+        return usuarioService.getApoderadoByRUt(rut);
+    }
 
 }

@@ -1,18 +1,25 @@
 package com.example.SegundaEntrega.Service.Usuarios;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.SegundaEntrega.Model.Alumno;
-import com.example.SegundaEntrega.Model.Apoderado;
-import com.example.SegundaEntrega.Model.Profesor;
-import com.example.SegundaEntrega.Model.Usuario;
+import com.example.SegundaEntrega.Model.Evaluaciones.Evaluacion;
+import com.example.SegundaEntrega.Model.Evaluaciones.NotaAlumno;
+import com.example.SegundaEntrega.Model.Evaluaciones.Tarea;
+import com.example.SegundaEntrega.Model.Usuario.Alumno;
+import com.example.SegundaEntrega.Model.Usuario.Apoderado;
+import com.example.SegundaEntrega.Model.Usuario.Profesor;
+import com.example.SegundaEntrega.Model.Usuario.Usuario;
+import com.example.SegundaEntrega.Repository.Usuarios.AlumnoRepository;
+import com.example.SegundaEntrega.Repository.Usuarios.ApoderadoRepository;
 import com.example.SegundaEntrega.Repository.Usuarios.ProfesorRepository;
 
 @Service
@@ -25,18 +32,17 @@ public class UsuariosService {
     @Autowired
     private ProfesorRepository profesorRepository;
 
-    @Autowired(required = false)
-    private Apoderado apoderadoRepository;
+    @Autowired
+    private ApoderadoRepository apoderadoRepository;
 
-    @Autowired(required = false)
-    private Alumno alumnoRepository;
+    @Autowired
+    private AlumnoRepository alumnoRepository;
     //*FIN Repositorios */
    
 
 
     //*PROFESOR */
     
-
     public List<Profesor> getProfesores(){
         System.out.println(profesorRepository.getListaProfesores());
         return profesorRepository.getListaProfesores();
@@ -47,26 +53,31 @@ public class UsuariosService {
     public Profesor postProfesor(Profesor profesor){
         return profesorRepository.crearProfesor(profesor);
     }
-    public void agregarNota(String usernameProfesor, String usernameAlumno, double nota) {
-        Usuario usuario = usuarios.get(usernameProfesor);
-        if (usuario instanceof Profesor profesor) {
-            Usuario alumno = usuarios.get(usernameAlumno);
-            if (alumno instanceof Alumno) {
-                profesor.ponerNota((Alumno) alumno, nota);
-            }
-        }
-    }
+
     //*FIN PROFESOR */
+
+
     //*ALUMNO */
+    public Alumno crearAlumno(Alumno alumno){
+        return alumnoRepository.crearAlumno(alumno);
+    }
+    public List<Alumno> getListaAlumnosGeneral(){
+        return alumnoRepository.getListaAlumnosGeneral();
+    }
+    public Alumno getAlumnoByUserName(String username){
+        return alumnoRepository.findByUserName(username);
+    }
+
+
+
     //*FIN ALUMNO */
 
     //*Apoderado */
-    public List<Double> consultarNotasAlumno(String usernameApoderado) {
-        Usuario usuario = usuarios.get(usernameApoderado);
-        if (usuario instanceof Apoderado apoderado && apoderado.getAlumnoACargo() != null) {
-            return apoderado.getAlumnoACargo().getNotas();
-        }
-        return new ArrayList<>();
+    public Apoderado crearApoderado(Apoderado apod){
+        return apoderadoRepository.crearApoderado(apod);
+    }
+    public Apoderado getApoderadoByRUt(String rut){
+        return apoderadoRepository.buscarApoderadoPorRut(rut);
     }
      //*FIN Apoderado */
 
