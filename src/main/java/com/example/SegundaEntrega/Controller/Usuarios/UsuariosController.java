@@ -1,6 +1,9 @@
 package com.example.SegundaEntrega.Controller.Usuarios;
 
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+
 
 import java.util.List;
 
@@ -8,6 +11,9 @@ import com.example.SegundaEntrega.Model.Usuario.Alumno;
 import com.example.SegundaEntrega.Model.Usuario.Apoderado;
 import com.example.SegundaEntrega.Model.Usuario.Profesor;
 import com.example.SegundaEntrega.Service.Usuarios.UsuariosService;
+
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,6 +37,7 @@ public class UsuariosController {
 
 
     //* ADMIN */
+    
     @PostMapping("/admin/profesores")
     public Profesor crearProfesor(@RequestBody Profesor profesor) {
         return usuarioService.postProfesor(profesor);

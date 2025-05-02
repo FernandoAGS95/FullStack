@@ -12,6 +12,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.SegundaEntrega.Model.Evaluaciones.NotaAlumno;
 import com.example.SegundaEntrega.Service.Evaluaciones.NotasService;
+
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -23,6 +27,15 @@ public class NotasAlumnoController {
     @Autowired
     private NotasService notasService;
 
+
+    @Operation(
+        summary = "Obtener notas de un alumno",
+        description = "Devuelve las notas de un alumno en una evaluación específica",
+        responses = {
+            @ApiResponse(responseCode = "200", description = "Notas encontradas"),
+            @ApiResponse(responseCode = "404", description = "Alumno o evaluación no existe")
+        }
+    )
     @GetMapping
     public List<NotaAlumno> getNotas(@RequestParam String idEvaluacion,@RequestParam String rutAlumno) {
         return notasService.obtenerNotaAlumno(idEvaluacion,rutAlumno);
