@@ -5,6 +5,7 @@ import lombok.Data;
 import java.util.*;
 
 @Data
+@Builder
 public class Evaluacion {
     
     private Map<String, NotaAlumno> resultados = new HashMap<>();

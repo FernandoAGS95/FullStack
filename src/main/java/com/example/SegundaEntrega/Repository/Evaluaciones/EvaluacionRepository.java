@@ -26,5 +26,16 @@ public class EvaluacionRepository {
         return evaluaciones.values().stream()
                 .filter(e -> e.getIdCurso().equals(curso))
                 .toList();
+    }    
+    public Evaluacion updateDescripcion(String id, String descripcion) {
+        Evaluacion evaluacion = evaluaciones.get(id);
+        if (evaluacion != null) {
+            evaluacion.setDescripcion(descripcion);
+            evaluaciones.put(id, evaluacion);
+        }
+        return evaluacion;
+    }
+    public Evaluacion deleteEvaluacion(String id) {
+        return evaluaciones.remove(id);
     }
 }
