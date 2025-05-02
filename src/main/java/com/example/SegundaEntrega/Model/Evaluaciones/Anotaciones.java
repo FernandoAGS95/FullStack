@@ -8,7 +8,7 @@ public class Anotaciones {
     private String contenido;
     private Date fecha;
     private String idProfesor;
-    private String idAlumno;
+    private String rutAlumno;
     private TipoAnotacion tipo;
 
     public enum TipoAnotacion {

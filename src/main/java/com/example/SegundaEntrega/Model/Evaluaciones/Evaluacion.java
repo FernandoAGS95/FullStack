@@ -26,8 +26,8 @@ public class Evaluacion {
         REVISADA
     }
 
-    public void agregarResultado(String idAlumno, NotaAlumno nota) {
-        resultados.put(idAlumno, nota);
+    public void agregarResultado(String rutAlumno, NotaAlumno nota) {
+        resultados.put(rutAlumno, nota);
     }
     public Double calcularPromedio() {
         return resultados.values().stream()

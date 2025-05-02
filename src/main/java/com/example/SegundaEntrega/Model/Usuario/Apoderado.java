@@ -8,10 +8,7 @@ import java.util.List;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
-@Getter
-@Setter
-@ToString(callSuper = true)
-@SuperBuilder
+@Data
 public class Apoderado  extends Usuario{
    private String telefono;
     @Builder.Default

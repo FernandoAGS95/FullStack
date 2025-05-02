@@ -7,7 +7,7 @@ import lombok.Data;
 @Builder
 public class NotaAlumno {
     private String idEvaluacion;
-    private String idAlumno;
+    private String rutAlumno;
     private Double valor;
     private boolean ausente;
     private boolean pendienteRevision;
